@@ -5,6 +5,7 @@
 #include <stack>
 #include <queue>
 #include <set>
+#include <algorithm>
 
 using namespace std;
 
@@ -232,6 +233,43 @@ public:
         }
         return true;
     }
+
+    // Function to provide the minimum spanning tree (MST) of the graph using Prim's algorithm
+    void findMST() {
+        vector<bool> inMST(SIZE, false);
+        vector<int> key(SIZE, INT_MAX);
+        vector<int> parent(SIZE, -1);
+        key[0] = 0;
+
+        for (int count = 0; count < SIZE - 1; count++) {
+            int u = -1;
+
+            for (int i = 0; i < SIZE; i++) {
+                if (!inMST[i] && (u == -1 || key[i] < key[u])) {
+                    u = i;
+                }
+            }
+
+            inMST[u] = true;
+
+            for (auto &neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+
+                if (!inMST[v] && weight < key[v]) {
+                    key[v] = weight;
+                    parent[v] = u;
+                }
+            }
+        }
+
+        cout << "Minimum Spanning Tree edges:" << endl;
+        for (int i = 1; i < SIZE; i++) {
+            if (parent[i] != -1) {
+                cout << "Edge from " << parent[i] << " to " << i << " with capacity: " << key[i] << " units" << endl;
+            }
+        }
+    }
 };
 
 
@@ -281,6 +319,10 @@ int main() {
     } else {
         cout << "The graph is not connected from node 0." << endl;
     }
+
+    cout << endl << "Minimum Spanning Tree" << endl;
+    // Find the minimum spanning tree of the graph
+    graph.findMST();
 
     return 0;
 }
