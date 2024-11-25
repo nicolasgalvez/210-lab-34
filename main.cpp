@@ -272,7 +272,6 @@ public:
     }
 };
 
-
 int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
@@ -285,44 +284,82 @@ int main() {
     // Creates graph
     Graph graph(edges);
 
-    // Prints adjacency list representation of graph
-    graph.printGraph();
+    int choice;
+    int startNode;
 
-    // Perform DFS starting from vertex 0
-    cout << "DFS starting from vertex 0:" << endl;
-    graph.DFS(0);
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Print Graph\n";
+        cout << "2. Perform DFS\n";
+        cout << "3. Perform BFS\n";
+        cout << "4. Print Star System Model\n";
+        cout << "5. Plot Warp Jump\n";
+        cout << "6. Show Potential Jumps\n";
+        cout << "7. Find Shortest Path\n";
+        cout << "8. Check Graph Connectivity\n";
+        cout << "9. Find Minimum Spanning Tree\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    // Perform BFS starting from vertex 0
-    cout << "BFS starting from vertex 0:" << endl;
-    graph.BFS(0);
-
-    cout << endl << "Star System Model" << endl;
-    // Prints adjacency list representation of graph
-    graph.printStarSystem();
-
-    cout << endl;
-    cout << "Compute Nav Points" << endl;
-    // Prints warp map using DFS starting from system 0
-    graph.plotWarpJump(0);
-
-    cout << endl << "Potential Jumps" << endl;
-    // Show potential jumps using BFS starting from system 0
-    graph.showPotentialJumps(0);
-
-    cout << endl << "Shortest Paths" << endl;
-    // Find the shortest path from node 0
-    graph.findShortestPath(0);
-
-    // Check if the graph is connected from node 0
-    if (graph.isConnected(0)) {
-        cout << "The graph is connected from node 0." << endl;
-    } else {
-        cout << "The graph is not connected from node 0." << endl;
-    }
-
-    cout << endl << "Minimum Spanning Tree" << endl;
-    // Find the minimum spanning tree of the graph
-    graph.findMST();
+        switch (choice) {
+            case 1:
+                graph.printGraph();
+                break;
+            case 2:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                cout << "DFS starting from vertex " << startNode << ":" << endl;
+                graph.DFS(startNode);
+                break;
+            case 3:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                cout << "BFS starting from vertex " << startNode << ":" << endl;
+                graph.BFS(startNode);
+                break;
+            case 4:
+                cout << "Star System Model" << endl;
+                graph.printStarSystem();
+                break;
+            case 5:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                cout << "Compute Nav Points" << endl;
+                graph.plotWarpJump(startNode);
+                break;
+            case 6:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                cout << "Potential Jumps" << endl;
+                graph.showPotentialJumps(startNode);
+                break;
+            case 7:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                cout << "Shortest Paths" << endl;
+                graph.findShortestPath(startNode);
+                break;
+            case 8:
+                cout << "Enter starting node: ";
+                cin >> startNode;
+                if (graph.isConnected(startNode)) {
+                    cout << "The graph is connected from node " << startNode << "." << endl;
+                } else {
+                    cout << "The graph is not connected from node " << startNode << "." << endl;
+                }
+                break;
+            case 9:
+                cout << "Minimum Spanning Tree" << endl;
+                graph.findMST();
+                break;
+            case 0:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 0);
 
     return 0;
 }
