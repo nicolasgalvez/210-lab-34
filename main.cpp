@@ -9,6 +9,10 @@ using namespace std;
 
 const int SIZE = 12; // Updated size to 11 NOTE: LLM caused exception. Manually edited to 12.
 
+const string systemNames[SIZE] = {
+    "Earth", "Vulcan", "Andoria", "Qo'noS", "Romulus", "Cardassia", "Bajor", "Ferenginar", "Betazed", "Risa", "Trill", "Tellar"
+};
+
 struct Edge {
     int src, dest, weight;
 };
@@ -42,12 +46,23 @@ public:
     void printGraph() {
         cout << "Graph's adjacency list:" << endl;
         for (int i = 0; i < adjList.size(); i++) {
-            cout << i << " --> ";
+            cout << systemNames[i] << " (" << i << ") --> ";
             for (Pair v : adjList[i])
-                cout << "(" << v.first << ", " << v.second << ") ";
+                cout << "(" << systemNames[v.first] << " (" << v.first << "), Dilithium: " << v.second << ") ";
             cout << endl;
         }
     }
+
+    void printStarSystem() {
+        cout << "Star System Model:" << endl;
+        for (int i = 0; i < adjList.size(); i++) {
+            cout << "Planet " << systemNames[i] << " (" << i << ") warps to: ";
+            for (Pair v : adjList[i])
+                cout << "Planet " << systemNames[v.first] << " (" << v.first << ") (Dilithium: " << v.second << ") ";
+            cout << endl;
+        }
+    }
+
     // Function to perform DFS on the graph
     void DFS(int start) {
         unordered_map<int, bool> visited;
@@ -93,7 +108,58 @@ public:
         }
         cout << endl;
     }
+
+    // Function to print warp map using DFS
+    void plotWarpJump(int start) {
+        unordered_map<int, bool> visited;
+        stack<int> stack;
+        stack.push(start);
+
+        cout << "Plotting sequence of jumps from origin " << systemNames[start] << " (" << start << "):" << endl;
+
+        while (!stack.empty()) {
+            int v = stack.top();
+            stack.pop();
+
+            if (!visited[v]) {
+                cout << "System " << systemNames[v] << " (" << v << ") -> ";
+                visited[v] = true;
+            }
+
+            for (auto &neighbor : adjList[v]) {
+                if (!visited[neighbor.first]) {
+                    stack.push(neighbor.first);
+                }
+            }
+        }
+        cout << "End" << endl;
+    }
+
+    // Function to show potential jumps using BFS
+    void showPotentialJumps(int start) {
+        unordered_map<int, bool> visited;
+        queue<int> queue;
+        queue.push(start);
+        visited[start] = true;
+
+        cout << "Potential jumps from system " << systemNames[start] << " (" << start << ") (BFS):" << endl;
+
+        while (!queue.empty()) {
+            int v = queue.front();
+            queue.pop();
+            cout << "System " << systemNames[v] << " (" << v << ") -> ";
+
+            for (auto &neighbor : adjList[v]) {
+                if (!visited[neighbor.first]) {
+                    queue.push(neighbor.first);
+                    visited[neighbor.first] = true;
+                }
+            }
+        }
+        cout << "End" << endl;
+    }
 };
+
 
 int main() {
     // Creates a vector of graph edges/weights
@@ -117,6 +183,19 @@ int main() {
     // Perform BFS starting from vertex 0
     cout << "BFS starting from vertex 0:" << endl;
     graph.BFS(0);
+
+    cout << endl << "Star System Model" << endl;
+    // Prints adjacency list representation of graph
+    graph.printStarSystem();
+
+    cout << endl;
+    cout << "Compute Nav Points" << endl;
+    // Prints warp map using DFS starting from system 0
+    graph.plotWarpJump(0);
+
+    cout << endl << "Potential Jumps" << endl;
+    // Show potential jumps using BFS starting from system 0
+    graph.showPotentialJumps(0);
 
     return 0;
 }
