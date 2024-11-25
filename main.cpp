@@ -1,5 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <list>
+#include <stack>
+#include <queue>
+
 using namespace std;
 
 const int SIZE = 7;
@@ -43,6 +48,51 @@ public:
             cout << endl;
         }
     }
+    // Function to perform DFS on the graph
+    void DFS(int start) {
+        unordered_map<int, bool> visited;
+        stack<int> stack;
+        stack.push(start);
+
+        while (!stack.empty()) {
+            int v = stack.top();
+            stack.pop();
+
+            if (!visited[v]) {
+                cout << v << " ";
+                visited[v] = true;
+            }
+
+            for (auto &neighbor : adjList[v]) {
+                if (!visited[neighbor.first]) {
+                    stack.push(neighbor.first);
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    // Function to perform BFS on the graph
+    void BFS(int start) {
+        unordered_map<int, bool> visited;
+        queue<int> queue;
+        queue.push(start);
+        visited[start] = true;
+
+        while (!queue.empty()) {
+            int v = queue.front();
+            queue.pop();
+            cout << v << " ";
+
+            for (auto &neighbor : adjList[v]) {
+                if (!visited[neighbor.first]) {
+                    queue.push(neighbor.first);
+                    visited[neighbor.first] = true;
+                }
+            }
+        }
+        cout << endl;
+    }
 };
 
 int main() {
@@ -57,6 +107,14 @@ int main() {
 
     // Prints adjacency list representation of graph
     graph.printGraph();
+
+    // Perform DFS starting from vertex 0
+    cout << "DFS starting from vertex 0:" << endl;
+    graph.DFS(0);
+
+    // Perform BFS starting from vertex 0
+    cout << "BFS starting from vertex 0:" << endl;
+    graph.BFS(0);
 
     return 0;
 }
