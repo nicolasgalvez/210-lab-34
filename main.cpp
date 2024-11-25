@@ -99,7 +99,7 @@ int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
-        {0,1,10},{0,2,15},{0,3,20},{2,3,25},{2,4,30},{4,7,35},{7,8,40},{8,9,45},{9,10,50},{10,11,55},{11,2,60}
+        {0,1,10},{0,2,15},{0,3,20},{2,3,25},{5,4,30},{4,7,35},{7,8,40},{8,9,45},{9,10,50},{10,11,55},{6,2,60}
         // LLM INPUT: Change the graph by deleting at least two nodes and adding at least six nodes. Change the weights as well.
         // LLM OUTPUT: Modify the graph by deleting nodes 5 and 6, and adding nodes 7, 8, 9, 10, 11, and 12. Update the edges and weights accordingly.
     };
