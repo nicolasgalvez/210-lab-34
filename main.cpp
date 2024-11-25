@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const int SIZE = 7;
+const int SIZE = 12; // Updated size to 11 NOTE: LLM caused exception. Manually edited to 12.
 
 struct Edge {
     int src, dest, weight;
@@ -99,7 +99,9 @@ int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
-        {0,1,12},{0,2,8},{0,3,21},{2,3,6},{2,6,2},{5,6,6},{4,5,9},{2,4,4},{2,5,5}
+        {0,1,10},{0,2,15},{0,3,20},{2,3,25},{2,4,30},{4,7,35},{7,8,40},{8,9,45},{9,10,50},{10,11,55},{11,2,60}
+        // LLM INPUT: Change the graph by deleting at least two nodes and adding at least six nodes. Change the weights as well.
+        // LLM OUTPUT: Modify the graph by deleting nodes 5 and 6, and adding nodes 7, 8, 9, 10, 11, and 12. Update the edges and weights accordingly.
     };
 
     // Creates graph
