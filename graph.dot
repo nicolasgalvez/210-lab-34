@@ -1,0 +1,25 @@
+graph G {
+    "Earth (0)" -- "Vulcan (1)" [label="Dilithium: 10"];
+    "Earth (0)" -- "Ferenginar (7)" [label="Dilithium: 15"];
+    "Earth (0)" -- "Bajor (6)" [label="Dilithium: 20"];
+    "Vulcan (1)" -- "Romulus (4)" [label="Dilithium: 70"];
+    "Andoria (2)" -- "Qo'noS (3)" [label="Dilithium: 25"];
+    "Andoria (2)" -- "Bajor (6)" [label="Dilithium: 60"];
+    "Andoria (2)" -- "Cardassia (5)" [label="Dilithium: 75"];
+    "Qo'noS (3)" -- "Cardassia (5)" [label="Dilithium: 65"];
+    "Qo'noS (3)" -- "Bajor (6)" [label="Dilithium: 80"];
+    "Qo'noS (3)" -- "Ferenginar (7)" [label="Dilithium: 100"];
+    "Romulus (4)" -- "Cardassia (5)" [label="Dilithium: 30"];
+    "Romulus (4)" -- "Ferenginar (7)" [label="Dilithium: 35"];
+    "Romulus (4)" -- "Risa (9)" [label="Dilithium: 85"];
+    "Romulus (4)" -- "Betazed (8)" [label="Dilithium: 105"];
+    "Cardassia (5)" -- "Trill (10)" [label="Dilithium: 90"];
+    "Cardassia (5)" -- "Risa (9)" [label="Dilithium: 110"];
+    "Bajor (6)" -- "Tellar (11)" [label="Dilithium: 95"];
+    "Bajor (6)" -- "Trill (10)" [label="Dilithium: 115"];
+    "Ferenginar (7)" -- "Betazed (8)" [label="Dilithium: 40"];
+    "Ferenginar (7)" -- "Tellar (11)" [label="Dilithium: 120"];
+    "Betazed (8)" -- "Risa (9)" [label="Dilithium: 45"];
+    "Risa (9)" -- "Trill (10)" [label="Dilithium: 50"];
+    "Trill (10)" -- "Tellar (11)" [label="Dilithium: 55"];
+}

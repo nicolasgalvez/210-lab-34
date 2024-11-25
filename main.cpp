@@ -6,6 +6,7 @@
 #include <queue>
 #include <set>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -270,13 +271,30 @@ public:
             }
         }
     }
+
+    // Function to generate a DOT file for the graph
+    void generateDOTFile(const string &filename) {
+        ofstream file(filename);
+        file << "graph G {" << endl;
+
+        for (int i = 0; i < adjList.size(); i++) {
+            for (Pair v : adjList[i]) {
+                if (i < v.first) { // To avoid duplicate edges in undirected graph
+                    file << "    \"" << systemNames[i] << " (" << i << ")\" -- \"" << systemNames[v.first] << " (" << v.first << ")\" [label=\"Dilithium: " << v.second << "\"];" << endl;
+                }
+            }
+        }
+
+        file << "}" << endl;
+        file.close();
+    }
 };
 
 int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
-        {0,1,10},{0,7,15},{0,6,20},{2,3,25},{5,4,30},{4,7,35},{7,8,40},{8,9,45},{9,10,50},{10,11,55},{6,2,60}
+        {0,1,10},{0,7,15},{0,6,20},{2,3,25},{5,4,30},{4,7,35},{7,8,40},{8,9,45},{9,10,50},{10,11,55},{6,2,60},{3,5,65},{1,4,70},{2,5,75},{3,6,80},{4,9,85},{5,10,90},{6,11,95},{7,3,100},{8,4,105},{9,5,110},{10,6,115},{11,7,120}
         // LLM INPUT: Change the graph by deleting at least two nodes and adding at least six nodes. Change the weights as well.
         // LLM OUTPUT: Modify the graph by deleting nodes 5 and 6, and adding nodes 7, 8, 9, 10, 11, and 12. Update the edges and weights accordingly.
     };
@@ -298,6 +316,7 @@ int main() {
         cout << "7. Find Shortest Path\n";
         cout << "8. Check Graph Connectivity\n";
         cout << "9. Find Minimum Spanning Tree\n";
+        cout << "10. Generate Graph PDF\n";
         cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -352,6 +371,10 @@ int main() {
             case 9:
                 cout << "Minimum Spanning Tree" << endl;
                 graph.findMST();
+                break;
+            case 10:
+                graph.generateDOTFile("graph.dot");
+                cout << "DOT file generated as graph.dot. Use Graphviz to convert it to PDF." << endl;
                 break;
             case 0:
                 cout << "Exiting..." << endl;
